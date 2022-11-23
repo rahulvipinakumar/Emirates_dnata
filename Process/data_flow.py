@@ -73,7 +73,7 @@ if __name__ == "__main__":
         spark=SparkSession.builder.getOrCreate()
         #Assigning table names
         source_table = <source_table>
-	stage_table = <stage_table>
+	    stage_table = <stage_table>
         target_table = <target_table>
         # Fetching last extracted time of source data
         LET=spark.read.csv(<let_filename>,header=False,inferSchema=True).collect()[0]['_c0']
@@ -84,10 +84,10 @@ if __name__ == "__main__":
         df=spark.read.csv('WebTrackingData.csv',header=True,inferSchema=True)
         print('Data extracted from source')
         if df :
-	    # Cleanse and load data to staging table
-	    del_stage_sql= f"truncate table if exists {stage_table} "
+	        # Cleanse and load data to staging table
+	        del_stage_sql= f"truncate table if exists {stage_table} "
             __utils__.run_qry(del_stage_sql)
-	    # Loading data to snowflake stage table
+	        # Loading data to snowflake stage table
             __utils__.write_data_snowflake(df,stage_table)
             # Delete the data from target table for those dates which is about to process to avoid duplicates
             del_sql= f"DELETE FROM {target_table} where PageViewDate > '{LET}' "
