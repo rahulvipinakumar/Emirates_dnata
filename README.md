@@ -13,18 +13,19 @@ Tools/languages need to use.
 •	Git and Jenkins -- Deployment and version management
 
 PFA the data flow diagram and schema. 
-Data_flow_diagram.pdf, snowflake_schema_diagram.pdf
+https://github.com/rahulvipinakumar/Emirates_dnata/blob/main/Data_flow_diagram.pdf
+https://github.com/rahulvipinakumar/Emirates_dnata/blob/main/snowflake_schema_diagram.pdf
       
 
 2.	##### Using Python programming language, please prepare a script to ingest the provided csv file, perform some sample manipulation that you feel relevant to the data set, and load the data to a Microsoft or Snowflake database of your choosing.
 
 Answer: 
 PFA the batch process code.
-__utils__.py, data_flow.py, LET.csv
+https://github.com/rahulvipinakumar/Emirates_dnata/tree/main/Process
  
 3.	##### Load the data into a Microsoft or Snowflake SQL database, and then prepare SQL to perform some manipulation to the data set that you feel appropriate to do some sample modelling of the data.	
 
 Answer: 
 PFA the SQL queries used.
-SQL_Transformations.txt
+https://github.com/rahulvipinakumar/Emirates_dnata/blob/main/SQL_Transformations.txt
 
