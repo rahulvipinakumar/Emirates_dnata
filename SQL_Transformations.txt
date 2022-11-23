@@ -1,0 +1,64 @@
+1#Query used to get the device used for accessing the website most in last 1 week.
+-------------------------------------------------------------------
+Solution:
+---------
+select deviceused,count(1) from <TARGET_TABLE>
+where deviceused is not null
+and pageviewdate >= dateadd(day,-6,current_date())
+group by deviceused
+order by count(1) desc
+
+Analysis:
+---------
+Its iphone, which is used more. We can give a suggestion to built an IOS app to give a good customer experience.
+
+----------------------------------------------------------------------------------------------------------------------------
+2#Query used to get the purpose for which most of the customers visited the website in last 1 week.
+Solution:
+---------
+select visitpurpose,count(1) from <TARGET_TABLE>
+where visitpurpose is not null
+and pageviewdate >= dateadd(day,-6,current_date())
+group by visitpurpose
+order by count(1) desc
+
+Analysis:
+---------
+Majority of people searched for Holiday packages, We can give good holiday packages and focus more on improving other sectors.
+
+----------------------------------------------------------------------------------------------------------------------------
+3#Query to give how many days customer visited the site in last 1 week before booking a trip.
+Solution:
+---------
+select cookieid,count(distinct pageviewdate)
+from <TARGET_TABLE> A
+where --cookieid <> 0 and
+exists (select * from <TARGET_TABLE> B
+where B.tripid is not null and B.cookieid=A.cookieid
+           and A.pageviewdate <= B.pageviewdate)
+and A.pageviewdate >= dateadd(day,-6,current_date())
+group by cookieid
+order by count(distinct pageviewdate) desc
+
+Analysis:
+---------
+We need to analyze the site urls each customer visited, to know where the customer spent most of the time before finding a perfect package to book.
+----------------------------------------------------------------------------------------------------------------------------
+4#Query used to find out WebSite traffic time periods in last 1 week.
+Solution:
+---------
+select case when pageviewtime <= '06:00:00' then '00 to 06'
+            when pageviewtime > '06:00:00' and pageviewtime <= '12:00:00'then '06 to 12'
+            when pageviewtime > '12:00:00' and pageviewtime <= '18:00:00'then '12 to 18'
+            when pageviewtime > '18:00:00' then '18 to 00'
+        end as time_periods,
+        count(1)
+from <TARGET_TABLE> 
+where cookieid <> 0
+and pageviewdate >= dateadd(day,-6,current_date())
+group by time_periods
+order by count(1) desc
+
+Analysis:
+---------
+The webSite traffic is more from 6:00pm to midnight, and its better to scale up our servers to handle more bandwidth and give more offers to customers to increase booking during this time period.
